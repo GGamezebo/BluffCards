@@ -20,6 +20,13 @@ func test_all_scripts_and_scenes_load() -> void:
 			node.free()
 
 
+func test_export_keeps_text_scenes() -> void:
+	# Binary-converted scenes drop @export refs to nodes added inside instanced dialogs
+	# (table menu buttons, room send button…) → null in exported builds only.
+	expect_eq(ProjectSettings.get_setting("editor/export/convert_text_resources_to_binary", true), false,
+			"export keeps .tscn as text")
+
+
 func test_hfsm_config_matches_scene_paths() -> void:
 	var result := HfsmLoader.try_load_tree("res://src/game/hfsm/app_hfsm.json")
 	expect_eq(result.error, "", "hfsm json parses")

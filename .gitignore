@@ -39,3 +39,4 @@ __pycache__/
 # Nakama runtime files
 server/nakama/.cookie
 server/nakama/data/
+/bin/
