@@ -1,0 +1,108 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/card_face/card_face.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://assets/art/cards/card_face.svg" id="2_face"]
+[ext_resource type="Texture2D" path="res://assets/art/suits/club.svg" id="3_c"]
+[ext_resource type="Texture2D" path="res://assets/art/suits/diamond.svg" id="4_d"]
+[ext_resource type="Texture2D" path="res://assets/art/suits/heart.svg" id="5_h"]
+[ext_resource type="Texture2D" path="res://assets/art/suits/spade.svg" id="6_s"]
+
+[sub_resource type="StyleBoxFlat" id="selected"]
+bg_color = Color(0, 0, 0, 0)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.9255, 0.5804, 0.2353, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+anti_aliasing = true
+
+[node name="CardFace" type="Button" node_paths=PackedStringArray("rank_label", "corner_suit", "center_suit", "body", "selected_frame")]
+custom_minimum_size = Vector2(84, 120)
+offset_right = 84.0
+offset_bottom = 120.0
+focus_mode = 0
+theme_type_variation = &"CardButton"
+toggle_mode = true
+script = ExtResource("1_s")
+suit_textures = Array[Texture2D]([ExtResource("3_c"), ExtResource("4_d"), ExtResource("5_h"), ExtResource("6_s")])
+rank_label = NodePath("Body/Rank")
+corner_suit = NodePath("Body/CornerSuit")
+center_suit = NodePath("Body/CenterSuit")
+body = NodePath("Body")
+selected_frame = NodePath("Body/SelectedFrame")
+
+[node name="Body" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Face" type="TextureRect" parent="Body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_face")
+expand_mode = 1
+
+[node name="Rank" type="Label" parent="Body"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 7.0
+offset_top = 1.0
+offset_right = 77.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 34
+text = "К"
+
+[node name="CornerSuit" type="TextureRect" parent="Body"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 42.0
+offset_right = 31.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource("3_c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterSuit" type="TextureRect" parent="Body"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -52.0
+offset_right = -8.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("3_c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SelectedFrame" type="Panel" parent="Body"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("selected")

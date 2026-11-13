@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="MatchEvents" format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/match_session/match_events.gd" id="1_s"]
+
+[resource]
+script = ExtResource("1_s")

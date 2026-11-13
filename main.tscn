@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://src/ui/overlays/loading_screen/loading_screen.tscn" id="2_load"]
+[ext_resource type="Script" path="res://src/game/hfsm/hfsm_scene_paths.gd" id="3_paths"]
+
+[node name="Main" type="Node" node_paths=PackedStringArray("_scene_paths")]
+script = ExtResource("1_main")
+_scene_paths = NodePath("ScenePaths")
+loading_screen_scene = ExtResource("2_load")
+
+[node name="ScenePaths" type="Node" parent="."]
+script = ExtResource("3_paths")

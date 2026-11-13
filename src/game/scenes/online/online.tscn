@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/online/online.gd" id="1_online"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="2_ev"]
+[ext_resource type="Resource" path="res://src/features/online/online_config.tres" id="3_cfg"]
+[ext_resource type="Resource" path="res://src/features/online/online_link.tres" id="4_link"]
+[ext_resource type="Resource" path="res://src/common/player_profile.tres" id="5_prof"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="6_log"]
+[ext_resource type="Script" path="res://addons/com.heroiclabs.nakama/Nakama.gd" id="7_nk"]
+
+[node name="Online" type="Node" node_paths=PackedStringArray("nakama_node")]
+script = ExtResource("1_online")
+online_events = ExtResource("2_ev")
+online_config = ExtResource("3_cfg")
+online_link = ExtResource("4_link")
+profile = ExtResource("5_prof")
+log_settings = ExtResource("6_log")
+nakama_node = NodePath("Nakama")
+
+[node name="Nakama" type="Node" parent="."]
+script = ExtResource("7_nk")

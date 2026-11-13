@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/segmented/segmented.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://src/ui/components/segmented/segment_option.tscn" id="2_opt"]
+
+[node name="Segmented" type="HBoxContainer"]
+offset_right = 640.0
+offset_bottom = 56.0
+theme_override_constants/separation = 6
+script = ExtResource("1_s")
+option_scene = ExtResource("2_opt")

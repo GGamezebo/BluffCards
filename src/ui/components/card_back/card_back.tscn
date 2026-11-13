@@ -1,0 +1,45 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/card_back/card_back.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://assets/art/cards/card_back.svg" id="2_back"]
+
+[node name="CardBack" type="Button" node_paths=PackedStringArray("number_label")]
+custom_minimum_size = Vector2(60, 86)
+offset_right = 60.0
+offset_bottom = 86.0
+focus_mode = 0
+theme_type_variation = &"CardButton"
+disabled = true
+script = ExtResource("1_s")
+number_label = NodePath("Number")
+
+[node name="Art" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_back")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Number" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 20.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.9765, 0.898, 1)
+theme_override_font_sizes/font_size = 18
+text = "1"
+horizontal_alignment = 1

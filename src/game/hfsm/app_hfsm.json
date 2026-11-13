@@ -1,0 +1,52 @@
+{
+	"App": {
+		"scene": { "id": "app_root", "async_loading": false, "on_event": "ev.open_menu" },
+		"states": {
+			"Platform": {
+				"context": "PlatformRouterContext",
+				"enter": ["ev.open_platform"],
+				"states": {
+					"WEB": { "context": "WEBContext", "enter": ["ev.open_web"] },
+					"Android": { "context": "AndroidContext", "enter": ["ev.open_android"] },
+					"Desktop": { "context": "DesktopContext", "enter": ["ev.open_desktop"] }
+				}
+			},
+			"Online": {
+				"scene": { "id": "online", "async_loading": false },
+				"enter": ["ev.open_online"],
+				"states": {
+					"Match": {
+						"scene": { "id": "match_session", "async_loading": false },
+						"enter": ["ev.join_match"],
+						"leave": ["ev.open_menu", "ev.close_match"]
+					}
+				}
+			},
+			"Lobby": {
+				"scene": { "id": "lobby", "loading_screen": true, "preload": ["table"] },
+				"enter": ["ev.open_menu"],
+				"leave": ["ev.open_search", "ev.open_room", "ev.open_table", "ev.open_result"]
+			},
+			"Search": {
+				"scene": { "id": "search", "async_loading": false },
+				"enter": ["ev.open_search"],
+				"leave": ["ev.open_menu", "ev.open_room", "ev.open_table", "ev.open_result"]
+			},
+			"Room": {
+				"scene": { "id": "room", "async_loading": false },
+				"enter": ["ev.open_room"],
+				"leave": ["ev.open_menu", "ev.open_search", "ev.open_table", "ev.open_result"]
+			},
+			"Table": {
+				"scene": { "id": "table", "loading_screen": true, "keep_loaded": true, "preload": ["result"] },
+				"enter": ["ev.open_table"],
+				"leave": ["ev.open_menu", "ev.open_search", "ev.open_room", "ev.open_result"]
+			},
+			"Result": {
+				"scene": { "id": "result", "async_loading": false, "keep_loaded": true },
+				"enter": ["ev.open_result"],
+				"leave": ["ev.open_menu", "ev.open_search", "ev.open_room", "ev.open_table"]
+			}
+		}
+	}
+}

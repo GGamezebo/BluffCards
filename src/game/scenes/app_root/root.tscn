@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/app_root/root.gd" id="1_root"]
+[ext_resource type="Resource" path="res://src/game/scenes/app_root/root_events.tres" id="2_ev"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="3_on"]
+[ext_resource type="Resource" path="res://src/common/platform_caps.tres" id="4_caps"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="5_log"]
+[ext_resource type="PackedScene" path="res://src/ui/overlays/toast/toast.tscn" id="6_toast"]
+
+[node name="AppRoot" type="Node" node_paths=PackedStringArray("toast")]
+script = ExtResource("1_root")
+root_events = ExtResource("2_ev")
+online_events = ExtResource("3_on")
+platform_caps = ExtResource("4_caps")
+log_settings = ExtResource("5_log")
+toast = NodePath("Toast")
+
+[node name="Toast" parent="." instance=ExtResource("6_toast")]

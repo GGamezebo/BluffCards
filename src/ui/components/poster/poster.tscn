@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/poster/poster.gd" id="1_s"]
+
+[node name="Poster" type="PanelContainer" node_paths=PackedStringArray("title_label", "subtitle_label", "art_slot")]
+custom_minimum_size = Vector2(0, 150)
+offset_right = 640.0
+offset_bottom = 150.0
+theme_type_variation = &"PosterPanel"
+script = ExtResource("1_s")
+title_label = NodePath("Row/Text/Title")
+subtitle_label = NodePath("Row/Text/Subtitle")
+art_slot = NodePath("Row/Art")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Text" type="VBoxContainer" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Row/Text"]
+layout_mode = 2
+theme_type_variation = &"LightTitle"
+text = "Заголовок"
+autowrap_mode = 3
+
+[node name="Subtitle" type="Label" parent="Row/Text"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"SmallLightLabel"
+autowrap_mode = 3
+
+[node name="Art" type="CenterContainer" parent="Row"]
+layout_mode = 2

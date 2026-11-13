@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/match_session/match_session.gd" id="1_s"]
+[ext_resource type="Resource" path="res://src/game/scenes/match_session/match_events.tres" id="2_mev"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="3_oev"]
+[ext_resource type="Resource" path="res://src/features/online/online_link.tres" id="4_link"]
+[ext_resource type="Resource" path="res://src/common/table_view.tres" id="5_view"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="6_log"]
+
+[node name="MatchSession" type="Node"]
+script = ExtResource("1_s")
+match_events = ExtResource("2_mev")
+online_events = ExtResource("3_oev")
+online_link = ExtResource("4_link")
+table_view = ExtResource("5_view")
+log_settings = ExtResource("6_log")

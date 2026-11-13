@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/list_line/list_line.gd" id="1_s"]
+
+[sub_resource type="StyleBoxLine" id="line"]
+color = Color(0.8627, 0.8627, 0.8196, 1)
+thickness = 2
+
+[node name="ListLine" type="HBoxContainer" node_paths=PackedStringArray("caption_label", "value_label")]
+custom_minimum_size = Vector2(0, 52)
+offset_right = 640.0
+offset_bottom = 52.0
+script = ExtResource("1_s")
+caption_label = NodePath("Caption")
+value_label = NodePath("Value")
+
+[node name="Caption" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Подпись"
+text_overrun_behavior = 3
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
+text = "—"
+horizontal_alignment = 2

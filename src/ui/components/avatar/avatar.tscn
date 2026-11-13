@@ -1,0 +1,100 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/avatar/avatar.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://assets/art/club_lobby.webp" id="2_art"]
+
+[sub_resource type="StyleBoxFlat" id="mask"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9843, 0.8275, 0.6118, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+anti_aliasing = true
+
+[sub_resource type="StyleBoxFlat" id="ring"]
+bg_color = Color(0, 0, 0, 0)
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.8078, 0.4471, 1)
+corner_radius_top_left = 200
+corner_radius_top_right = 200
+corner_radius_bottom_right = 200
+corner_radius_bottom_left = 200
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+anti_aliasing = true
+
+[sub_resource type="AtlasTexture" id="face"]
+atlas = ExtResource("2_art")
+region = Rect2(143, 200, 300, 300)
+
+[node name="Avatar" type="Control" node_paths=PackedStringArray("mask", "portrait", "letter", "ring_panel")]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 72.0
+offset_bottom = 72.0
+mouse_filter = 2
+script = ExtResource("1_s")
+mask = NodePath("Mask")
+portrait = NodePath("Mask/Portrait")
+letter = NodePath("Mask/Letter")
+ring_panel = NodePath("Ring")
+
+[node name="Mask" type="Panel" parent="."]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("mask")
+
+[node name="Portrait" type="TextureRect" parent="Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("face")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Letter" type="Label" parent="Mask"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.2, 0.18, 0.16, 1)
+theme_override_font_sizes/font_size = 30
+text = "И"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ring" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ring")

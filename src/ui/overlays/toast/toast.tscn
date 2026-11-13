@@ -1,0 +1,65 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/overlays/toast/toast.gd" id="1_s"]
+
+[sub_resource type="StyleBoxFlat" id="toast"]
+content_margin_left = 22.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.0863, 0.2275, 0.2627, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7843, 0.6706, 0.4431, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+anti_aliasing = true
+
+[node name="Toast" type="CanvasLayer" node_paths=PackedStringArray("panel", "text_label", "action_button")]
+layer = 60
+script = ExtResource("1_s")
+panel = NodePath("Anchor/Panel")
+text_label = NodePath("Anchor/Panel/Row/Text")
+action_button = NodePath("Anchor/Panel/Row/Action")
+
+[node name="Anchor" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 160.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Anchor"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 96.0
+offset_right = -24.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("toast")
+
+[node name="Row" type="HBoxContainer" parent="Anchor/Panel"]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Anchor/Panel/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LightLabel"
+text = "Сообщение"
+autowrap_mode = 3
+
+[node name="Action" type="Button" parent="Anchor/Panel/Row"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"GoldButton"
+text = "Войти"

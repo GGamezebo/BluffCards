@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/components/app_bar/app_bar.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://assets/art/cards/card_back.svg" id="2_logo"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/chip.svg" id="3_chip"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/account.svg" id="4_acc"]
+
+[sub_resource type="StyleBoxEmpty" id="flat"]
+
+[node name="AppBar" type="PanelContainer" node_paths=PackedStringArray("logo_button", "balance_label", "help_button", "account_button")]
+custom_minimum_size = Vector2(0, 84)
+offset_right = 720.0
+offset_bottom = 84.0
+theme_type_variation = &"AppBar"
+script = ExtResource("1_s")
+logo_button = NodePath("Row/Logo")
+balance_label = NodePath("Row/Chips/Box/Balance")
+help_button = NodePath("Row/Help")
+account_button = NodePath("Row/Account")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Logo" type="Button" parent="Row"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.9569, 0.851, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9569, 0.851, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.86, 0.6, 1)
+theme_override_colors/font_focus_color = Color(1, 0.9569, 0.851, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("flat")
+theme_override_styles/hover = SubResource("flat")
+theme_override_styles/pressed = SubResource("flat")
+theme_override_styles/hover_pressed = SubResource("flat")
+theme_override_styles/focus = SubResource("flat")
+text = "BluffCards"
+icon = ExtResource("2_logo")
+expand_icon = true
+custom_minimum_size = Vector2(210, 52)
+
+[node name="Spacer" type="Control" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Chips" type="PanelContainer" parent="Row"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"ChipPill"
+
+[node name="Box" type="HBoxContainer" parent="Row/Chips"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Row/Chips/Box"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_chip")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="Row/Chips/Box"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+text = "1 000"
+
+[node name="Help" type="Button" parent="Row"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"GhostButton"
+text = "?  Как играть"
+
+[node name="Account" type="Button" parent="Row"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Аккаунт"
+theme_type_variation = &"IconButton"
+icon = ExtResource("4_acc")
+icon_alignment = 1
+expand_icon = true

@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/dialogs/modal_dialog/modal_dialog.gd" id="1_s"]
+
+[node name="ModalDialog" type="Control" node_paths=PackedStringArray("title_label", "body_label", "content", "primary_button", "secondary_button", "close_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s")
+title_label = NodePath("Center/Panel/Box/Head/Title")
+body_label = NodePath("Center/Panel/Box/Body")
+content = NodePath("Center/Panel/Box/Content")
+primary_button = NodePath("Center/Panel/Box/Primary")
+secondary_button = NodePath("Center/Panel/Box/Secondary")
+close_button = NodePath("Center/Panel/Box/Head/Close")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196, 0.0745, 0.1059, 0.62)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_type_variation = &"ModalPanel"
+
+[node name="Box" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Head" type="HBoxContainer" parent="Center/Panel/Box"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Box/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Заголовок"
+autowrap_mode = 3
+
+[node name="Close" type="Button" parent="Center/Panel/Box/Head"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_vertical = 0
+theme_type_variation = &"SlimButton"
+text = "×"
+
+[node name="Body" type="Label" parent="Center/Panel/Box"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+text = "Текст"
+autowrap_mode = 3
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Primary" type="Button" parent="Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Готово"
+
+[node name="Secondary" type="Button" parent="Center/Panel/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Отмена"
