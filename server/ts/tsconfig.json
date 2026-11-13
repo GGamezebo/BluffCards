@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2015"],
+    "strict": true,
+    "noEmitOnError": true,
+    "outFile": "../nakama/modules/index.js",
+    "typeRoots": ["./node_modules"],
+    "types": ["nakama-runtime"]
+  },
+  "files": ["./src/config.ts", "./src/rules.ts", "./src/bot.ts", "./src/store.ts", "./src/match.ts", "./src/rpc.ts", "./src/main.ts"]
+}

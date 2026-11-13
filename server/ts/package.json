@@ -1,0 +1,14 @@
+{
+  "name": "bluffcards-server",
+  "private": true,
+  "version": "0.1.0",
+  "description": "BluffCards authoritative match logic for the Nakama JS runtime.",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "tsc -p tsconfig.test.json && node build/test.js"
+  },
+  "devDependencies": {
+    "nakama-runtime": "github:heroiclabs/nakama-common",
+    "typescript": "^5.6.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2015"],
+    "strict": true,
+    "outFile": "./build/test.js",
+    "noEmitOnError": true,
+    "types": []
+  },
+  "files": ["./src/rules.ts", "./src/bot.ts", "./test/rules.test.ts"]
+}

@@ -1,0 +1,32 @@
+# Nakama config for BluffCards on your own computer.
+# Secrets (server key, session keys, console password) come from server/.env via CLI flags.
+# Spaces only (no tabs).
+
+name: bluffcards
+data_dir: "/nakama/data/"
+
+logger:
+  level: "INFO"
+  stdout: true
+
+session:
+  token_expiry_sec: 86400
+  refresh_token_expiry_sec: 2592000
+
+socket:
+  port: 7350
+  max_message_size_bytes: 16384
+
+match:
+  input_queue_size: 128
+
+console:
+  port: 7351
+
+runtime:
+  path: "/nakama/data/modules"
+  js_entrypoint: "index.js"
+  # Balance overrides (server/ts/src/config.ts): BC_SEARCH_SEC, BC_BOT_DELAY_SCALE, BC_REVEAL_SEC.
+  env:
+    - "BC_SEARCH_SEC=20"
+    - "BC_BOT_DELAY_SCALE=1"
