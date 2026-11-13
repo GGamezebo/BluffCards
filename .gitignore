@@ -23,3 +23,19 @@ mono_crash.*.json
 *.exe
 # Uncomment if your project does not version PCK files as runtime dependencies.
 # *.pck
+
+# Godot / project
+/build/
+/export/
+/online_local.tres
+.claude/settings.local.json
+__pycache__/
+
+# Secrets (never commit)
+.env
+*.keystore
+*.jks
+
+# Nakama runtime files
+server/nakama/.cookie
+server/nakama/data/

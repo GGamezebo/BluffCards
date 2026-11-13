@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173e44">
+  <title>BluffCards · Атлас игры</title>
+  <link rel="stylesheet" href="atlas.css">
+  <link rel="stylesheet" href="club.css">
+  <link rel="stylesheet" href="terrace.css">
+</head>
+<body>
+  <header class="mast">
+    <a class="brand" href="#table" aria-label="BluffCards, игровой стол"><span class="brandcard"><i class="eyes"></i></span>BluffCards</a>
+    <nav aria-label="Разделы документации"><button data-view="screens">Экраны</button><button data-view="map">Карта переходов</button><button data-view="style">Стиль</button></nav>
+    <button class="catalog-toggle" data-act="catalog">☰ Каталог</button>
+  </header>
+  <div class="layout">
+    <aside id="catalog" aria-label="Каталог экранов"></aside>
+    <main id="main"></main>
+  </div>
+  <dialog id="modal"><form method="dialog"><button aria-label="Закрыть" class="close">×</button></form><div id="modalContent"></div></dialog>
+  <div id="toast" role="status"></div>
+  <script defer src="game.js"></script><script defer src="catalog.js"></script><script defer src="map.js"></script><script defer src="club.js"></script><script defer src="motion.js"></script><script defer src="atlas.js"></script>
+</body>
+</html>
