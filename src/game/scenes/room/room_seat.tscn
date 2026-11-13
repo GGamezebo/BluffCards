@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/room/room_seat.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://src/ui/components/avatar/avatar.tscn" id="2_av"]
+
+[node name="RoomSeat" type="VBoxContainer" node_paths=PackedStringArray("avatar", "name_label", "button")]
+custom_minimum_size = Vector2(110, 0)
+offset_right = 110.0
+offset_bottom = 120.0
+theme_override_constants/separation = 6
+script = ExtResource("1_s")
+avatar = NodePath("Slot/Avatar")
+name_label = NodePath("Name")
+button = NodePath("Slot/Add")
+
+[node name="Slot" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+
+[node name="Avatar" parent="Slot" instance=ExtResource("2_av")]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="Slot"]
+visible = false
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+theme_type_variation = &"GhostButton"
+theme_override_font_sizes/font_size = 34
+text = "+"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"SmallLightLabel"
+text = "Ира"
+horizontal_alignment = 1
+text_overrun_behavior = 3

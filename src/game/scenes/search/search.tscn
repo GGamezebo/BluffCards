@@ -1,0 +1,131 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/search/search.gd" id="1_s"]
+[ext_resource type="Theme" path="res://src/ui/theme/bluff_theme.tres" id="2_th"]
+[ext_resource type="Resource" path="res://src/common/table_view.tres" id="3_view"]
+[ext_resource type="Resource" path="res://src/game/scenes/match_session/match_events.tres" id="4_mev"]
+[ext_resource type="Resource" path="res://src/common/player_profile.tres" id="5_prof"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="6_log"]
+[ext_resource type="Resource" path="res://src/game/scenes/search/demo_view.tres" id="7_demo"]
+[ext_resource type="Script" path="res://core/lib/center_column/center_column.gd" id="8_col"]
+[ext_resource type="PackedScene" path="res://src/ui/components/app_bar/app_bar.tscn" id="9_bar"]
+[ext_resource type="PackedScene" path="res://src/ui/components/avatar/avatar.tscn" id="10_av"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/search/empty_seat.tscn" id="11_empty"]
+
+[node name="Search" type="Control" node_paths=PackedStringArray("app_bar", "seats_box", "mode_label", "timer_label", "progress", "tip_label", "cancel_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_th")
+script = ExtResource("1_s")
+table_view = ExtResource("3_view")
+match_events = ExtResource("4_mev")
+profile = ExtResource("5_prof")
+log_settings = ExtResource("6_log")
+demo_view = ExtResource("7_demo")
+app_bar = NodePath("Column/Frame/AppBar")
+seats_box = NodePath("Column/Frame/Paper/Box/Waiting/Box/Seats")
+mode_label = NodePath("Column/Frame/Paper/Box/Waiting/Box/Mode")
+timer_label = NodePath("Column/Frame/Paper/Box/Waiting/Box/Timer")
+progress = NodePath("Column/Frame/Paper/Box/Progress")
+tip_label = NodePath("Column/Frame/Paper/Box/Tip")
+cancel_button = NodePath("Column/Frame/Paper/Box/Cancel")
+avatar_scene = ExtResource("10_av")
+empty_seat_scene = ExtResource("11_empty")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0863, 0.2275, 0.2627, 1)
+
+[node name="Column" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_col")
+
+[node name="Frame" type="VBoxContainer" parent="Column"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AppBar" parent="Column/Frame" instance=ExtResource("9_bar")]
+layout_mode = 2
+show_help = false
+
+[node name="Paper" type="PanelContainer" parent="Column/Frame"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"ScreenPanel"
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Title" type="Label" parent="Column/Frame/Paper/Box"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "Поиск соперников"
+horizontal_alignment = 1
+
+[node name="Waiting" type="PanelContainer" parent="Column/Frame/Paper/Box"]
+layout_mode = 2
+theme_type_variation = &"WaitingTable"
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper/Box/Waiting"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Seats" type="HFlowContainer" parent="Column/Frame/Paper/Box/Waiting/Box"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+alignment = 1
+
+[node name="Mode" type="Label" parent="Column/Frame/Paper/Box/Waiting/Box"]
+layout_mode = 2
+theme_type_variation = &"LightTitle"
+text = "На вылет"
+horizontal_alignment = 1
+
+[node name="Timer" type="Label" parent="Column/Frame/Paper/Box/Waiting/Box"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+text = "Поиск · 0 / 20 с"
+horizontal_alignment = 1
+
+[node name="Progress" type="ProgressBar" parent="Column/Frame/Paper/Box"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+show_percentage = false
+
+[node name="Tip" type="Label" parent="Column/Frame/Paper/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Совет"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Note" type="Label" parent="Column/Frame/Paper/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "При заполнении стол начинается сразу. Через 20 секунд свободные места занимают другие игроки."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Cancel" type="Button" parent="Column/Frame/Paper/Box"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+text = "Отмена"

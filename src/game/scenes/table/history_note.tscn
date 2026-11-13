@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[node name="HistoryNote" type="Label"]
+custom_minimum_size = Vector2(0, 34)
+offset_right = 320.0
+offset_bottom = 34.0
+theme_type_variation = &"SmallLightLabel"
+text = "Маша объявляет: Три короля"
+autowrap_mode = 3

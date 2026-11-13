@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="TableView" format=3]
+
+[ext_resource type="Script" path="res://src/common/table_view.gd" id="1_s"]
+
+[resource]
+script = ExtResource("1_s")
+data = {
+"kind": "public",
+"mode": "quick",
+"fee": 0,
+"size": 4,
+"timer": 20,
+"phase": "playing",
+"me": 0,
+"deal_no": 1,
+"seats": [{
+"seat": 0, "id": "me", "name": "Гость A122", "avatar": 4, "bot": false, "connected": true, "away": false, "left": false,
+"alive": true, "cards": 7, "minus": [0], "out": false, "respect": 3
+}, {
+"seat": 1, "id": "u1", "name": "Ира", "avatar": 0, "bot": false, "connected": true, "away": false, "left": false,
+"alive": true, "cards": 5, "minus": [1], "out": false, "respect": 12
+}, {
+"seat": 2, "id": "u2", "name": "Макс", "avatar": 2, "bot": false, "connected": true, "away": false, "left": false,
+"alive": true, "cards": 5, "minus": [], "out": false, "respect": 7
+}, {
+"seat": 3, "id": "u3", "name": "Маша", "avatar": 1, "bot": false, "connected": true, "away": false, "left": false,
+"alive": true, "cards": 2, "minus": [], "out": false, "respect": 21
+}],
+"deal": {
+"phase": "reply",
+"deck": 22,
+"pile": 11,
+"packets": [5, 3, 3],
+"packet": 3,
+"claim": 11,
+"actor": 0,
+"last": 3,
+"opener": 1,
+"mandatory": false,
+"dead": [{"rank": 0, "seat": 0}, {"rank": 1, "seat": 1}],
+"hand_size": 7,
+"round": 4,
+"reveal": null,
+"turn_total": 20,
+"turn_left": 16.0
+},
+"hand": [8, 17, 27, 34, 38, 43, 48],
+"history": [{"t": "deal", "seat": -1, "count": 1}, {"t": "play", "seat": 1, "count": 5, "rank": 11, "open": true}, {"t": "play", "seat": 2, "count": 3, "rank": 11, "open": false}, {"t": "play", "seat": 3, "count": 3, "rank": 11, "open": false}],
+"result": null
+}

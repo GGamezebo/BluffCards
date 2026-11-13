@@ -1,0 +1,590 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/table.gd" id="1_s"]
+[ext_resource type="Theme" path="res://src/ui/theme/bluff_theme.tres" id="2_th"]
+[ext_resource type="Resource" path="res://src/common/table_view.tres" id="3_view"]
+[ext_resource type="Resource" path="res://src/game/scenes/match_session/match_events.tres" id="4_mev"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="5_oev"]
+[ext_resource type="Resource" path="res://src/game/scenes/table/reaction_set.tres" id="6_react"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="7_log"]
+[ext_resource type="Resource" path="res://src/game/scenes/table/demo_view.tres" id="8_demo"]
+[ext_resource type="Script" path="res://core/lib/center_column/center_column.gd" id="9_col"]
+[ext_resource type="Texture2D" path="res://assets/art/suits/spade.svg" id="10_spade"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/rank_row.tscn" id="11_rank"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/deck.svg" id="12_deck"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/trick_view.tscn" id="13_trick"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/hand_view.tscn" id="14_hand"]
+[ext_resource type="Script" path="res://src/game/scenes/table/table_motion.gd" id="15_motion"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/flight_token.tscn" id="16_token"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/reactions_sheet.tscn" id="17_sheet"]
+[ext_resource type="PackedScene" path="res://src/ui/dialogs/modal_dialog/modal_dialog.tscn" id="18_modal"]
+[ext_resource type="PackedScene" path="res://src/ui/components/avatar/avatar.tscn" id="19_av"]
+[ext_resource type="PackedScene" path="res://src/ui/components/list_line/list_line.tscn" id="20_line"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/table_seat.tscn" id="21_seat"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/history_note.tscn" id="22_note"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/chat.svg" id="23_chat"]
+
+[sub_resource type="StyleBoxFlat" id="side"]
+content_margin_left = 18.0
+content_margin_top = 18.0
+content_margin_right = 18.0
+content_margin_bottom = 18.0
+bg_color = Color(0.1255, 0.2431, 0.2941, 1)
+
+[sub_resource type="Gradient" id="glow_g"]
+colors = PackedColorArray(0.1412, 0.2941, 0.3333, 1, 0.0863, 0.2235, 0.2784, 1)
+
+[sub_resource type="GradientTexture2D" id="glow"]
+gradient = SubResource("glow_g")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[node name="Table" type="Control" node_paths=PackedStringArray("title_label", "deal_label", "menu_button", "rank_strip", "felt_area", "felt", "seats_layer", "deck_label", "trick", "instruction_panel", "instruction_label", "motion_status", "hand_head_label", "turn_label", "reactions_button", "hand", "picker", "check_button", "transfer_button", "declare_button", "back_button", "side_left", "side_right", "history_side", "quick_side", "motion", "reactions_sheet", "menu_dialog", "menu_history", "menu_reactions", "menu_leave", "history_dialog", "history_list", "rank_dialog", "player_dialog", "player_avatar", "player_cards", "player_minus", "player_respect", "mute_button", "friend_button", "report_button", "block_button", "report_dialog", "report_reasons", "leave_dialog", "away_dialog", "offline_dialog", "watch_dialog", "round_dialog", "round_list", "lesson_dialog")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_th")
+script = ExtResource("1_s")
+table_view = ExtResource("3_view")
+match_events = ExtResource("4_mev")
+online_events = ExtResource("5_oev")
+reaction_set = ExtResource("6_react")
+log_settings = ExtResource("7_log")
+demo_view = ExtResource("8_demo")
+title_label = NodePath("Layout/Main/Column/Margin/Frame/GameBar/Row/Title")
+deal_label = NodePath("Layout/Main/Column/Margin/Frame/GameBar/Row/Deal")
+menu_button = NodePath("Layout/Main/Column/Margin/Frame/GameBar/Row/Menu")
+rank_strip = NodePath("Layout/Main/Column/Margin/Frame/Strip/RankStrip")
+felt_area = NodePath("Layout/Main/Column/Margin/Frame/FeltArea")
+felt = NodePath("Layout/Main/Column/Margin/Frame/FeltArea/Felt")
+seats_layer = NodePath("Layout/Main/Column/Margin/Frame/FeltArea/Seats")
+deck_label = NodePath("Layout/Main/Column/Margin/Frame/FeltArea/Deck/Row/Count")
+trick = NodePath("Layout/Main/Column/Margin/Frame/FeltArea/Center/Trick")
+instruction_panel = NodePath("Layout/Main/Column/Margin/Frame/Instruction")
+instruction_label = NodePath("Layout/Main/Column/Margin/Frame/Instruction/Text")
+motion_status = NodePath("Layout/Main/Column/Margin/Frame/MotionStatus")
+hand_head_label = NodePath("Layout/Main/Column/Margin/Frame/HandZone/Head/Mine")
+turn_label = NodePath("Layout/Main/Column/Margin/Frame/HandZone/Head/Turn")
+reactions_button = NodePath("Layout/Main/Column/Margin/Frame/HandZone/Head/Reactions")
+hand = NodePath("Layout/Main/Column/Margin/Frame/HandZone/Hand")
+picker = NodePath("Layout/Main/Column/Margin/Frame/Picker")
+check_button = NodePath("Layout/Main/Column/Margin/Frame/Footer/Check")
+transfer_button = NodePath("Layout/Main/Column/Margin/Frame/Footer/Transfer")
+declare_button = NodePath("Layout/Main/Column/Margin/Frame/Footer/Declare")
+back_button = NodePath("Layout/Main/Column/Margin/Frame/Footer/Back")
+side_left = NodePath("Layout/SideLeft")
+side_right = NodePath("Layout/SideRight")
+history_side = NodePath("Layout/SideLeft/Box/Scroll/List")
+quick_side = NodePath("Layout/SideRight/Box/Quick")
+motion = NodePath("Motion")
+reactions_sheet = NodePath("ReactionsSheet")
+menu_dialog = NodePath("MenuDialog")
+menu_history = NodePath("MenuDialog/Center/Panel/Box/Content/History")
+menu_reactions = NodePath("MenuDialog/Center/Panel/Box/Content/Reactions")
+menu_leave = NodePath("MenuDialog/Center/Panel/Box/Content/Leave")
+history_dialog = NodePath("HistoryDialog")
+history_list = NodePath("HistoryDialog/Center/Panel/Box/Content/Scroll/List")
+rank_dialog = NodePath("RankDialog")
+player_dialog = NodePath("PlayerDialog")
+player_avatar = NodePath("PlayerDialog/Center/Panel/Box/Content/Face/Avatar")
+player_cards = NodePath("PlayerDialog/Center/Panel/Box/Content/Cards")
+player_minus = NodePath("PlayerDialog/Center/Panel/Box/Content/Minus")
+player_respect = NodePath("PlayerDialog/Center/Panel/Box/Content/Respect")
+mute_button = NodePath("PlayerDialog/Center/Panel/Box/Content/Mute")
+friend_button = NodePath("PlayerDialog/Center/Panel/Box/Content/Friend")
+report_button = NodePath("PlayerDialog/Center/Panel/Box/Content/Report")
+block_button = NodePath("PlayerDialog/Center/Panel/Box/Content/Block")
+report_dialog = NodePath("ReportDialog")
+report_reasons = NodePath("ReportDialog/Center/Panel/Box/Content")
+leave_dialog = NodePath("LeaveDialog")
+away_dialog = NodePath("AwayDialog")
+offline_dialog = NodePath("OfflineDialog")
+watch_dialog = NodePath("WatchDialog")
+round_dialog = NodePath("RoundDialog")
+round_list = NodePath("RoundDialog/Center/Panel/Box/Content/List")
+lesson_dialog = NodePath("LessonDialog")
+seat_scene = ExtResource("21_seat")
+line_scene = ExtResource("20_line")
+note_scene = ExtResource("22_note")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("glow")
+expand_mode = 1
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="SideLeft" type="PanelContainer" parent="Layout"]
+visible = false
+custom_minimum_size = Vector2(380, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("side")
+
+[node name="Box" type="VBoxContainer" parent="Layout/SideLeft"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/SideLeft/Box"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 26
+text = "История ходов"
+
+[node name="Scroll" type="ScrollContainer" parent="Layout/SideLeft/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Layout/SideLeft/Box/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Main" type="Control" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Column" type="Container" parent="Layout/Main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_col")
+max_width = 900.0
+
+[node name="Margin" type="MarginContainer" parent="Layout/Main/Column"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Frame" type="VBoxContainer" parent="Layout/Main/Column/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="GameBar" type="PanelContainer" parent="Layout/Main/Column/Margin/Frame"]
+layout_mode = 2
+theme_type_variation = &"AppBar"
+
+[node name="Row" type="HBoxContainer" parent="Layout/Main/Column/Margin/Frame/GameBar"]
+layout_mode = 2
+
+[node name="Suit" type="TextureRect" parent="Layout/Main/Column/Margin/Frame/GameBar/Row"]
+self_modulate = Color(1, 0.8235, 0.5294, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("10_spade")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Layout/Main/Column/Margin/Frame/GameBar/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 24
+text = "Быстрая игра · 4 мест"
+text_overrun_behavior = 3
+
+[node name="Deal" type="Label" parent="Layout/Main/Column/Margin/Frame/GameBar/Row"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 20
+text = "Раздача 1"
+
+[node name="Menu" type="Button" parent="Layout/Main/Column/Margin/Frame/GameBar/Row"]
+custom_minimum_size = Vector2(64, 52)
+layout_mode = 2
+tooltip_text = "Меню стола"
+theme_type_variation = &"IconButton"
+theme_override_font_sizes/font_size = 26
+text = "···"
+
+[node name="Strip" type="MarginContainer" parent="Layout/Main/Column/Margin/Frame"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="RankStrip" parent="Layout/Main/Column/Margin/Frame/Strip" instance=ExtResource("11_rank")]
+layout_mode = 2
+
+[node name="FeltArea" type="Control" parent="Layout/Main/Column/Margin/Frame"]
+custom_minimum_size = Vector2(0, 470)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Felt" type="PanelContainer" parent="Layout/Main/Column/Margin/Frame/FeltArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 14.0
+offset_right = -10.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"FeltPanel"
+
+[node name="Deck" type="PanelContainer" parent="Layout/Main/Column/Margin/Frame/FeltArea"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -52.0
+offset_right = 50.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Колода"
+theme_type_variation = &"DeckBadge"
+
+[node name="Row" type="HBoxContainer" parent="Layout/Main/Column/Margin/Frame/FeltArea/Deck"]
+layout_mode = 2
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Layout/Main/Column/Margin/Frame/FeltArea/Deck/Row"]
+self_modulate = Color(1, 0.894, 0.71, 1)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("12_deck")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Count" type="Label" parent="Layout/Main/Column/Margin/Frame/FeltArea/Deck/Row"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 20
+text = "22"
+
+[node name="Center" type="CenterContainer" parent="Layout/Main/Column/Margin/Frame/FeltArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 70.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Trick" parent="Layout/Main/Column/Margin/Frame/FeltArea/Center" instance=ExtResource("13_trick")]
+layout_mode = 2
+
+[node name="Seats" type="Control" parent="Layout/Main/Column/Margin/Frame/FeltArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Instruction" type="PanelContainer" parent="Layout/Main/Column/Margin/Frame"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"InfoPanel"
+
+[node name="Text" type="Label" parent="Layout/Main/Column/Margin/Frame/Instruction"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 20
+text = "Выбери карты и объяви номинал"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="MotionStatus" type="Label" parent="Layout/Main/Column/Margin/Frame"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 19
+horizontal_alignment = 1
+
+[node name="HandZone" type="VBoxContainer" parent="Layout/Main/Column/Margin/Frame"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Head" type="HBoxContainer" parent="Layout/Main/Column/Margin/Frame/HandZone"]
+layout_mode = 2
+
+[node name="Mine" type="Label" parent="Layout/Main/Column/Margin/Frame/HandZone/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 20
+text = "Ваша рука · 7 · −1"
+text_overrun_behavior = 3
+
+[node name="Turn" type="Label" parent="Layout/Main/Column/Margin/Frame/HandZone/Head"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 20
+text = "Ваш ход · 16 с"
+
+[node name="Reactions" type="Button" parent="Layout/Main/Column/Margin/Frame/HandZone/Head"]
+layout_mode = 2
+theme_type_variation = &"GhostButton"
+text = "Реакции"
+icon = ExtResource("23_chat")
+expand_icon = true
+
+[node name="Hand" parent="Layout/Main/Column/Margin/Frame/HandZone" instance=ExtResource("14_hand")]
+layout_mode = 2
+
+[node name="Picker" parent="Layout/Main/Column/Margin/Frame" instance=ExtResource("11_rank")]
+visible = false
+layout_mode = 2
+picker = true
+
+[node name="Footer" type="HBoxContainer" parent="Layout/Main/Column/Margin/Frame"]
+custom_minimum_size = Vector2(0, 88)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Back" type="Button" parent="Layout/Main/Column/Margin/Frame/Footer"]
+visible = false
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Назад"
+
+[node name="Check" type="Button" parent="Layout/Main/Column/Margin/Frame/Footer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HotButton"
+theme_override_font_sizes/font_size = 30
+text = "Не верю"
+
+[node name="Transfer" type="Button" parent="Layout/Main/Column/Margin/Frame/Footer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"PinkButton"
+theme_override_font_sizes/font_size = 28
+text = "Перевести · 0"
+
+[node name="Declare" type="Button" parent="Layout/Main/Column/Margin/Frame/Footer"]
+visible = false
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"GoldButton"
+theme_override_font_sizes/font_size = 28
+text = "Объявить · 0"
+
+[node name="SideRight" type="PanelContainer" parent="Layout"]
+visible = false
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("side")
+
+[node name="Box" type="VBoxContainer" parent="Layout/SideRight"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Layout/SideRight/Box"]
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 26
+text = "Реакции"
+
+[node name="Quick" type="VBoxContainer" parent="Layout/SideRight/Box"]
+layout_mode = 2
+
+[node name="Phrase1" type="Button" parent="Layout/SideRight/Box/Quick"]
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "Ну-ну"
+
+[node name="Phrase2" type="Button" parent="Layout/SideRight/Box/Quick"]
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "Проверяй, не бойся"
+
+[node name="Phrase3" type="Button" parent="Layout/SideRight/Box/Quick"]
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "Хорошая игра"
+
+[node name="Motion" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("15_motion")
+token_scene = ExtResource("16_token")
+
+[node name="ReactionsSheet" parent="." instance=ExtResource("17_sheet")]
+visible = false
+layout_mode = 1
+
+[node name="MenuDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="History" type="Button" parent="MenuDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+text = "История ходов"
+
+[node name="Reactions" type="Button" parent="MenuDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+text = "Реакции"
+
+[node name="Leave" type="Button" parent="MenuDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_type_variation = &"PinkButton"
+text = "Покинуть стол"
+
+[node name="HistoryDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="Scroll" type="ScrollContainer" parent="HistoryDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 560)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="HistoryDialog/Center/Panel/Box/Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RankDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="PlayerDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="Face" type="CenterContainer" parent="PlayerDialog/Center/Panel/Box/Content"]
+layout_mode = 2
+
+[node name="Avatar" parent="PlayerDialog/Center/Panel/Box/Content/Face" instance=ExtResource("19_av")]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+
+[node name="Cards" parent="PlayerDialog/Center/Panel/Box/Content" instance=ExtResource("20_line")]
+layout_mode = 2
+caption = "Карты в руке"
+
+[node name="Minus" parent="PlayerDialog/Center/Panel/Box/Content" instance=ExtResource("20_line")]
+layout_mode = 2
+caption = "Открытые минусы"
+
+[node name="Respect" parent="PlayerDialog/Center/Panel/Box/Content" instance=ExtResource("20_line")]
+layout_mode = 2
+caption = "Уважение"
+
+[node name="Mute" type="Button" parent="PlayerDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Заглушить реакции"
+
+[node name="Friend" type="Button" parent="PlayerDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_type_variation = &"GoldButton"
+theme_override_font_sizes/font_size = 22
+text = "Добавить в друзья"
+
+[node name="Report" type="Button" parent="PlayerDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Пожаловаться"
+
+[node name="Block" type="Button" parent="PlayerDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_type_variation = &"PinkButton"
+text = "Заблокировать"
+
+[node name="ReportDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="Nick" type="Button" parent="ReportDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Оскорбительный ник"
+
+[node name="Spam" type="Button" parent="ReportDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Спам реакциями"
+
+[node name="Other" type="Button" parent="ReportDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Другое"
+
+[node name="LeaveDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="AwayDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+dismissable = false
+
+[node name="Close" parent="AwayDialog/Center/Panel/Box/Head" index="1"]
+visible = false
+
+[node name="OfflineDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+dismissable = false
+
+[node name="Close" parent="OfflineDialog/Center/Panel/Box/Head" index="1"]
+visible = false
+
+[node name="WatchDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+
+[node name="RoundDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+dismissable = false
+
+[node name="Close" parent="RoundDialog/Center/Panel/Box/Head" index="1"]
+visible = false
+
+[node name="List" type="VBoxContainer" parent="RoundDialog/Center/Panel/Box/Content"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LessonDialog" parent="." instance=ExtResource("18_modal")]
+visible = false
+layout_mode = 1
+dismissable = false
+
+[node name="Close" parent="LessonDialog/Center/Panel/Box/Head" index="1"]
+visible = false

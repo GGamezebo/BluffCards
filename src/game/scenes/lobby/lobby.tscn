@@ -1,0 +1,719 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/lobby/lobby.gd" id="1_lobby"]
+[ext_resource type="Theme" path="res://src/ui/theme/bluff_theme.tres" id="2_th"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="3_oev"]
+[ext_resource type="Resource" path="res://src/common/player_profile.tres" id="4_prof"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="5_log"]
+[ext_resource type="Script" path="res://core/lib/center_column/center_column.gd" id="6_col"]
+[ext_resource type="PackedScene" path="res://src/ui/components/app_bar/app_bar.tscn" id="7_bar"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/home_window.gd" id="8_home"]
+[ext_resource type="Texture2D" path="res://assets/art/club_lobby.webp" id="9_art"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/friends.svg" id="10_fr"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/trophy.svg" id="11_tr"]
+[ext_resource type="PackedScene" path="res://src/ui/components/tile/tile.tscn" id="12_tile"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/pro_window.gd" id="13_pro"]
+[ext_resource type="PackedScene" path="res://src/ui/components/poster/poster.tscn" id="14_poster"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/friends_window.gd" id="15_friends"]
+[ext_resource type="PackedScene" path="res://src/ui/components/segmented/segmented.tscn" id="16_seg"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/join_window.gd" id="17_join"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/leaders_window.gd" id="18_lead"]
+[ext_resource type="PackedScene" path="res://src/ui/components/list_line/list_line.tscn" id="19_line"]
+[ext_resource type="Script" path="res://src/game/scenes/lobby/account_window.gd" id="20_acc"]
+[ext_resource type="Script" path="res://core/lib/window_stack_manager/window_stack_manager.gd" id="21_wsm"]
+[ext_resource type="Script" path="res://core/lib/window_stack_manager/button_window_stack_transition.gd" id="22_fwd"]
+[ext_resource type="Script" path="res://core/lib/window_stack_manager/button_window_back.gd" id="23_back"]
+[ext_resource type="PackedScene" path="res://src/ui/dialogs/modal_dialog/modal_dialog.tscn" id="24_modal"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/bolt.svg" id="25_bolt"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/crown.svg" id="26_crown"]
+
+[node name="Lobby" type="Control" node_paths=PackedStringArray("app_bar", "window_stack", "home_window", "pro_window", "friends_window", "join_window", "leaders_window", "account_window", "fee_dialog", "company_dialog", "company_name_edit", "delete_dialog")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_th")
+script = ExtResource("1_lobby")
+online_events = ExtResource("3_oev")
+profile = ExtResource("4_prof")
+log_settings = ExtResource("5_log")
+app_bar = NodePath("Column/Frame/AppBar")
+window_stack = NodePath("WindowStack")
+home_window = NodePath("Column/Frame/Windows/Home")
+pro_window = NodePath("Column/Frame/Windows/Pro")
+friends_window = NodePath("Column/Frame/Windows/Friends")
+join_window = NodePath("Column/Frame/Windows/Join")
+leaders_window = NodePath("Column/Frame/Windows/Leaders")
+account_window = NodePath("Column/Frame/Windows/Account")
+fee_dialog = NodePath("FeeDialog")
+company_dialog = NodePath("CompanyDialog")
+company_name_edit = NodePath("CompanyDialog/Center/Panel/Box/Content/Name")
+delete_dialog = NodePath("DeleteDialog")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0863, 0.2275, 0.2627, 1)
+
+[node name="Column" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_col")
+
+[node name="Frame" type="VBoxContainer" parent="Column"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AppBar" parent="Column/Frame" instance=ExtResource("7_bar")]
+layout_mode = 2
+
+[node name="Windows" type="Control" parent="Column/Frame"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Paper" type="ColorRect" parent="Column/Frame/Windows"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.9569, 0.851, 1)
+
+[node name="Home" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("series_button", "quick_button", "status_label", "first_visit_hint")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_home")
+series_button = NodePath("Scroll/Box/Marquee/Box/Play")
+quick_button = NodePath("Scroll/Box/Doors/Margin/Row/Quick")
+status_label = NodePath("Scroll/Box/Status")
+first_visit_hint = NodePath("Scroll/Box/Hint")
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Windows/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Home/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Hero" type="Control" parent="Column/Frame/Windows/Home/Scroll/Box"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 470)
+layout_mode = 2
+
+[node name="Art" type="TextureRect" parent="Column/Frame/Windows/Home/Scroll/Box/Hero"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_art")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Signs" type="HBoxContainer" parent="Column/Frame/Windows/Home/Scroll/Box/Hero"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -112.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="FriendsSign" type="Button" parent="Column/Frame/Windows/Home/Scroll/Box/Hero/Signs"]
+custom_minimum_size = Vector2(250, 84)
+layout_mode = 2
+theme_type_variation = &"GoldButton"
+text = "С друзьями"
+icon = ExtResource("10_fr")
+expand_icon = true
+
+[node name="LeadersSign" type="Button" parent="Column/Frame/Windows/Home/Scroll/Box/Hero/Signs"]
+custom_minimum_size = Vector2(250, 84)
+layout_mode = 2
+theme_type_variation = &"GoldButton"
+text = "Лидерборд"
+icon = ExtResource("11_tr")
+expand_icon = true
+
+[node name="Marquee" type="PanelContainer" parent="Column/Frame/Windows/Home/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"PosterPanel"
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Home/Scroll/Box/Marquee"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box/Marquee/Box"]
+layout_mode = 2
+theme_type_variation = &"HeroLabel"
+text = "На вылет"
+horizontal_alignment = 1
+
+[node name="Sub" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box/Marquee/Box"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+text = "6 мест · Бесплатно · серия до одного победителя"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="Column/Frame/Windows/Home/Scroll/Box/Marquee/Box"]
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HotButton"
+theme_override_font_sizes/font_size = 30
+text = "Играть →"
+
+[node name="Doors" type="MarginContainer" parent="Column/Frame/Windows/Home/Scroll/Box"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Home/Scroll/Box/Doors"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 6
+
+[node name="Row" type="HBoxContainer" parent="Column/Frame/Windows/Home/Scroll/Box/Doors/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Quick" type="Button" parent="Column/Frame/Windows/Home/Scroll/Box/Doors/Margin/Row"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("25_bolt")
+expand_icon = true
+text = "Быстрая игра"
+alignment = 0
+
+[node name="Pro" type="Button" parent="Column/Frame/Windows/Home/Scroll/Box/Doors/Margin/Row"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"GoldButton"
+theme_override_font_sizes/font_size = 22
+icon = ExtResource("26_crown")
+expand_icon = true
+text = "Клуб профи"
+alignment = 0
+
+[node name="DoorNotes" type="HBoxContainer" parent="Column/Frame/Windows/Home/Scroll/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="QuickNote" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box/DoorNotes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MutedLabel"
+text = "4 места · Бесплатно"
+horizontal_alignment = 1
+
+[node name="ProNote" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box/DoorNotes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"MutedLabel"
+text = "Столы со взносом"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box"]
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Подключение…"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hint" type="PanelContainer" parent="Column/Frame/Windows/Home/Scroll/Box"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"NoticePanel"
+
+[node name="Text" type="Label" parent="Column/Frame/Windows/Home/Scroll/Box/Hint"]
+layout_mode = 2
+text = "Первый раз за столом? Нажми «Как играть» — проверим заявку Маши и откроем одну карту."
+autowrap_mode = 3
+
+[node name="Pro" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("list")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_pro")
+list = NodePath("Scroll/Margin/Box/List")
+row_scene = ExtResource("12_tile")
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Windows/Pro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Pro/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Pro/Scroll/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Windows/Pro/Scroll/Margin/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Windows/Pro/Scroll/Margin/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Pro/Scroll/Margin/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Клуб профессионалов"
+
+[node name="Poster" parent="Column/Frame/Windows/Pro/Scroll/Margin/Box" instance=ExtResource("14_poster")]
+layout_mode = 2
+title = "На вылет · 6 мест"
+subtitle = "Банк — шесть взносов. Призы: 55 %, 30 %, 15 %. Отмена поиска возвращает взнос."
+
+[node name="List" type="VBoxContainer" parent="Column/Frame/Windows/Pro/Scroll/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Friends" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("tabs", "list", "empty_label", "main_button", "new_company_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_friends")
+tabs = NodePath("Margin/Box/Tabs")
+list = NodePath("Margin/Box/Scroll/List")
+tile_scene = ExtResource("12_tile")
+empty_label = NodePath("Margin/Box/Empty")
+main_button = NodePath("Margin/Box/Main")
+new_company_button = NodePath("Margin/Box/NewCompany")
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Friends"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Friends/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Windows/Friends/Margin/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Windows/Friends/Margin/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Friends/Margin/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Друзья и компании"
+
+[node name="Note" type="Label" parent="Column/Frame/Windows/Friends/Margin/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Друзья играют за отдельными столами, только с друзьями и ботами. Игры с друзьями бесплатны."
+autowrap_mode = 3
+
+[node name="Tabs" parent="Column/Frame/Windows/Friends/Margin/Box" instance=ExtResource("16_seg")]
+layout_mode = 2
+options = PackedStringArray("Друзья", "Компании", "Недавние")
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Windows/Friends/Margin/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Column/Frame/Windows/Friends/Margin/Box/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Empty" type="Label" parent="Column/Frame/Windows/Friends/Margin/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Друзей пока нет."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Main" type="Button" parent="Column/Frame/Windows/Friends/Margin/Box"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Создать комнату"
+
+[node name="NewCompany" type="Button" parent="Column/Frame/Windows/Friends/Margin/Box"]
+visible = false
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Создать компанию"
+
+[node name="JoinCode" type="Button" parent="Column/Frame/Windows/Friends/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Ввести код комнаты"
+
+[node name="Join" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("code_edit", "join_button", "hint_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_join")
+code_edit = NodePath("Margin/Box/Code")
+join_button = NodePath("Margin/Box/JoinButton")
+hint_label = NodePath("Margin/Box/Hint")
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Join"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Join/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Windows/Join/Margin/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Windows/Join/Margin/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Join/Margin/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Вход по коду"
+
+[node name="Caption" type="Label" parent="Column/Frame/Windows/Join/Margin/Box"]
+layout_mode = 2
+text = "Код комнаты"
+
+[node name="Code" type="LineEdit" parent="Column/Frame/Windows/Join/Margin/Box"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+placeholder_text = "BLF042"
+alignment = 1
+max_length = 6
+
+[node name="Hint" type="Label" parent="Column/Frame/Windows/Join/Margin/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Введи шесть символов из приглашения."
+autowrap_mode = 3
+
+[node name="JoinButton" type="Button" parent="Column/Frame/Windows/Join/Margin/Box"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Занять место"
+
+[node name="Leaders" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("tabs", "list", "me_line", "empty_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("18_lead")
+tabs = NodePath("Margin/Box/Tabs")
+list = NodePath("Margin/Box/Scroll/List")
+me_line = NodePath("Margin/Box/Me")
+row_scene = ExtResource("19_line")
+empty_label = NodePath("Margin/Box/Empty")
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Leaders"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Leaders/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Windows/Leaders/Margin/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Windows/Leaders/Margin/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Leaders/Margin/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Лидерборд · фишки"
+
+[node name="Tabs" parent="Column/Frame/Windows/Leaders/Margin/Box" instance=ExtResource("16_seg")]
+layout_mode = 2
+options = PackedStringArray("Все", "Друзья")
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Windows/Leaders/Margin/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Column/Frame/Windows/Leaders/Margin/Box/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Empty" type="Label" parent="Column/Frame/Windows/Leaders/Margin/Box"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Таблица пока пуста."
+horizontal_alignment = 1
+
+[node name="Me" parent="Column/Frame/Windows/Leaders/Margin/Box" instance=ExtResource("19_line")]
+layout_mode = 2
+caption = "Вы"
+value_text = "—"
+
+[node name="Account" type="Control" parent="Column/Frame/Windows" node_paths=PackedStringArray("name_line", "provider_line", "respect_line", "google_button", "apple_button", "telegram_button", "lesson_button", "delete_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_acc")
+name_line = NodePath("Scroll/Margin/Box/Name")
+provider_line = NodePath("Scroll/Margin/Box/Provider")
+respect_line = NodePath("Scroll/Margin/Box/Respect")
+google_button = NodePath("Scroll/Margin/Box/Google")
+apple_button = NodePath("Scroll/Margin/Box/Apple")
+telegram_button = NodePath("Scroll/Margin/Box/Telegram")
+lesson_button = NodePath("Scroll/Margin/Box/Lesson")
+delete_button = NodePath("Scroll/Margin/Box/Delete")
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Windows/Account"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="Column/Frame/Windows/Account/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Windows/Account/Scroll/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Windows/Account/Scroll/Margin/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Аккаунт"
+
+[node name="Name" parent="Column/Frame/Windows/Account/Scroll/Margin/Box" instance=ExtResource("19_line")]
+layout_mode = 2
+caption = "Профиль"
+
+[node name="Provider" parent="Column/Frame/Windows/Account/Scroll/Margin/Box" instance=ExtResource("19_line")]
+layout_mode = 2
+caption = "Вход"
+
+[node name="Respect" parent="Column/Frame/Windows/Account/Scroll/Margin/Box" instance=ExtResource("19_line")]
+layout_mode = 2
+caption = "Уважение соперников"
+
+[node name="LinkNote" type="Label" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Привяжи вход, чтобы не потерять фишки при смене телефона. Без входа работает гостевой профиль."
+autowrap_mode = 3
+
+[node name="Google" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Google"
+
+[node name="Apple" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Apple"
+
+[node name="Telegram" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Telegram"
+
+[node name="Lesson" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_type_variation = &"GoldButton"
+text = "Учебная раздача"
+
+[node name="Delete" type="Button" parent="Column/Frame/Windows/Account/Scroll/Margin/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_type_variation = &"PinkButton"
+text = "Удалить аккаунт"
+
+[node name="WindowStack" type="Node" parent="." node_paths=PackedStringArray("default_window")]
+script = ExtResource("21_wsm")
+default_window = NodePath("../Column/Frame/Windows/Home")
+
+[node name="ToPro" type="Node" parent="WindowStack" node_paths=PackedStringArray("button", "target_window")]
+script = ExtResource("22_fwd")
+button = NodePath("../../Column/Frame/Windows/Home/Scroll/Box/Doors/Margin/Row/Pro")
+target_window = NodePath("../../Column/Frame/Windows/Pro")
+
+[node name="ToFriends" type="Node" parent="WindowStack" node_paths=PackedStringArray("button", "target_window")]
+script = ExtResource("22_fwd")
+button = NodePath("../../Column/Frame/Windows/Home/Scroll/Box/Hero/Signs/FriendsSign")
+target_window = NodePath("../../Column/Frame/Windows/Friends")
+
+[node name="ToLeaders" type="Node" parent="WindowStack" node_paths=PackedStringArray("button", "target_window")]
+script = ExtResource("22_fwd")
+button = NodePath("../../Column/Frame/Windows/Home/Scroll/Box/Hero/Signs/LeadersSign")
+target_window = NodePath("../../Column/Frame/Windows/Leaders")
+
+[node name="ToAccount" type="Node" parent="WindowStack" node_paths=PackedStringArray("button", "target_window")]
+script = ExtResource("22_fwd")
+button = NodePath("../../Column/Frame/AppBar/Row/Account")
+target_window = NodePath("../../Column/Frame/Windows/Account")
+
+[node name="ToJoin" type="Node" parent="WindowStack" node_paths=PackedStringArray("button", "target_window")]
+script = ExtResource("22_fwd")
+button = NodePath("../../Column/Frame/Windows/Friends/Margin/Box/JoinCode")
+target_window = NodePath("../../Column/Frame/Windows/Join")
+
+[node name="BackPro" type="Node" parent="WindowStack" node_paths=PackedStringArray("button")]
+script = ExtResource("23_back")
+button = NodePath("../../Column/Frame/Windows/Pro/Scroll/Margin/Box/Header/Back")
+
+[node name="BackFriends" type="Node" parent="WindowStack" node_paths=PackedStringArray("button")]
+script = ExtResource("23_back")
+button = NodePath("../../Column/Frame/Windows/Friends/Margin/Box/Header/Back")
+
+[node name="BackJoin" type="Node" parent="WindowStack" node_paths=PackedStringArray("button")]
+script = ExtResource("23_back")
+button = NodePath("../../Column/Frame/Windows/Join/Margin/Box/Header/Back")
+
+[node name="BackLeaders" type="Node" parent="WindowStack" node_paths=PackedStringArray("button")]
+script = ExtResource("23_back")
+button = NodePath("../../Column/Frame/Windows/Leaders/Margin/Box/Header/Back")
+
+[node name="BackAccount" type="Node" parent="WindowStack" node_paths=PackedStringArray("button")]
+script = ExtResource("23_back")
+button = NodePath("../../Column/Frame/Windows/Account/Scroll/Margin/Box/Header/Back")
+
+[node name="FeeDialog" parent="." instance=ExtResource("24_modal")]
+visible = false
+layout_mode = 1
+
+[node name="CompanyDialog" parent="." instance=ExtResource("24_modal")]
+visible = false
+layout_mode = 1
+
+[node name="Name" type="LineEdit" parent="CompanyDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+placeholder_text = "Пятничные"
+max_length = 24
+
+[node name="DeleteDialog" parent="." instance=ExtResource("24_modal")]
+visible = false
+layout_mode = 1

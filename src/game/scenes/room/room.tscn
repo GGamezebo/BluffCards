@@ -1,0 +1,260 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/room/room.gd" id="1_s"]
+[ext_resource type="Theme" path="res://src/ui/theme/bluff_theme.tres" id="2_th"]
+[ext_resource type="Resource" path="res://src/common/table_view.tres" id="3_view"]
+[ext_resource type="Resource" path="res://src/game/scenes/match_session/match_events.tres" id="4_mev"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="5_oev"]
+[ext_resource type="Resource" path="res://src/common/player_profile.tres" id="6_prof"]
+[ext_resource type="Resource" path="res://src/common/platform_caps.tres" id="7_caps"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="8_log"]
+[ext_resource type="Resource" path="res://src/game/scenes/room/demo_view.tres" id="9_demo"]
+[ext_resource type="Script" path="res://core/lib/center_column/center_column.gd" id="10_col"]
+[ext_resource type="PackedScene" path="res://src/ui/components/app_bar/app_bar.tscn" id="11_bar"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/room/room_seat.tscn" id="12_seat"]
+[ext_resource type="PackedScene" path="res://src/ui/components/segmented/segmented.tscn" id="13_seg"]
+[ext_resource type="PackedScene" path="res://src/ui/dialogs/modal_dialog/modal_dialog.tscn" id="14_modal"]
+[ext_resource type="PackedScene" path="res://src/ui/components/tile/tile.tscn" id="15_tile"]
+
+[node name="Room" type="Control" node_paths=PackedStringArray("app_bar", "back_button", "seats_box", "company_label", "info_label", "queue_notice", "host_box", "guest_label", "mode_tabs", "size_label", "size_minus", "size_plus", "timer_tabs", "invite_button", "add_bot_button", "start_button", "invite_dialog", "copy_button", "friends_list", "send_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_th")
+script = ExtResource("1_s")
+table_view = ExtResource("3_view")
+match_events = ExtResource("4_mev")
+online_events = ExtResource("5_oev")
+profile = ExtResource("6_prof")
+platform_caps = ExtResource("7_caps")
+log_settings = ExtResource("8_log")
+demo_view = ExtResource("9_demo")
+app_bar = NodePath("Column/Frame/AppBar")
+back_button = NodePath("Column/Frame/Paper/Scroll/Box/Header/Back")
+seats_box = NodePath("Column/Frame/Paper/Scroll/Box/Waiting/Box/Seats")
+seat_scene = ExtResource("12_seat")
+company_label = NodePath("Column/Frame/Paper/Scroll/Box/Waiting/Box/Company")
+info_label = NodePath("Column/Frame/Paper/Scroll/Box/Waiting/Box/Info")
+queue_notice = NodePath("Column/Frame/Paper/Scroll/Box/Queue")
+host_box = NodePath("Column/Frame/Paper/Scroll/Box/Host")
+guest_label = NodePath("Column/Frame/Paper/Scroll/Box/Guest")
+mode_tabs = NodePath("Column/Frame/Paper/Scroll/Box/Host/Mode")
+size_label = NodePath("Column/Frame/Paper/Scroll/Box/Host/SizeRow/Value")
+size_minus = NodePath("Column/Frame/Paper/Scroll/Box/Host/SizeRow/Minus")
+size_plus = NodePath("Column/Frame/Paper/Scroll/Box/Host/SizeRow/Plus")
+timer_tabs = NodePath("Column/Frame/Paper/Scroll/Box/Host/Timer")
+invite_button = NodePath("Column/Frame/Paper/Scroll/Box/Invite")
+add_bot_button = NodePath("Column/Frame/Paper/Scroll/Box/AddBot")
+start_button = NodePath("Column/Frame/Paper/Scroll/Box/Start")
+invite_dialog = NodePath("InviteDialog")
+copy_button = NodePath("InviteDialog/Center/Panel/Box/Content/Copy")
+friends_list = NodePath("InviteDialog/Center/Panel/Box/Content/Scroll/List")
+tile_scene = ExtResource("15_tile")
+send_button = NodePath("InviteDialog/Center/Panel/Box/Content/Send")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0863, 0.2275, 0.2627, 1)
+
+[node name="Column" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_col")
+
+[node name="Frame" type="VBoxContainer" parent="Column"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AppBar" parent="Column/Frame" instance=ExtResource("11_bar")]
+layout_mode = 2
+show_help = false
+
+[node name="Paper" type="PanelContainer" parent="Column/Frame"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"ScreenPanel"
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Paper"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="Column/Frame/Paper/Scroll/Box/Header"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "←"
+
+[node name="Title" type="Label" parent="Column/Frame/Paper/Scroll/Box/Header"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+theme_override_font_sizes/font_size = 34
+text = "Комната друзей"
+
+[node name="Waiting" type="PanelContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"WaitingTable"
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper/Scroll/Box/Waiting"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Seats" type="HFlowContainer" parent="Column/Frame/Paper/Scroll/Box/Waiting/Box"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 10
+alignment = 1
+
+[node name="Company" type="Label" parent="Column/Frame/Paper/Scroll/Box/Waiting/Box"]
+layout_mode = 2
+theme_type_variation = &"LightTitle"
+theme_override_font_sizes/font_size = 32
+text = "Пятничные"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="Column/Frame/Paper/Scroll/Box/Waiting/Box"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+text = "3 / 4 мест · код BLF042"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Queue" type="PanelContainer" parent="Column/Frame/Paper/Scroll/Box"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"NoticePanel"
+
+[node name="Text" type="Label" parent="Column/Frame/Paper/Scroll/Box/Queue"]
+layout_mode = 2
+text = "Партия идёт. Вы в очереди и сядете за стол в следующей партии."
+autowrap_mode = 3
+
+[node name="Host" type="VBoxContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ModeCaption" type="Label" parent="Column/Frame/Paper/Scroll/Box/Host"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Формат"
+
+[node name="Mode" parent="Column/Frame/Paper/Scroll/Box/Host" instance=ExtResource("13_seg")]
+layout_mode = 2
+options = PackedStringArray("Быстрая", "На вылет")
+
+[node name="SizeRow" type="HBoxContainer" parent="Column/Frame/Paper/Scroll/Box/Host"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Column/Frame/Paper/Scroll/Box/Host/SizeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Мест за столом"
+
+[node name="Minus" type="Button" parent="Column/Frame/Paper/Scroll/Box/Host/SizeRow"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "−"
+
+[node name="Value" type="Label" parent="Column/Frame/Paper/Scroll/Box/Host/SizeRow"]
+custom_minimum_size = Vector2(56, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "4"
+horizontal_alignment = 1
+
+[node name="Plus" type="Button" parent="Column/Frame/Paper/Scroll/Box/Host/SizeRow"]
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "+"
+
+[node name="TimerCaption" type="Label" parent="Column/Frame/Paper/Scroll/Box/Host"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Таймер хода"
+
+[node name="Timer" parent="Column/Frame/Paper/Scroll/Box/Host" instance=ExtResource("13_seg")]
+layout_mode = 2
+options = PackedStringArray("20 с", "60 с", "Выкл.")
+
+[node name="Guest" type="Label" parent="Column/Frame/Paper/Scroll/Box"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Хозяин выбирает формат"
+autowrap_mode = 3
+
+[node name="Invite" type="Button" parent="Column/Frame/Paper/Scroll/Box"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_type_variation = &"PinkButton"
+text = "Пригласить по ссылке"
+
+[node name="AddBot" type="Button" parent="Column/Frame/Paper/Scroll/Box"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+text = "Добавить бота"
+
+[node name="Start" type="Button" parent="Column/Frame/Paper/Scroll/Box"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Начать"
+
+[node name="Note" type="Label" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Комната сохраняется между партиями. Хост может убрать бота, нажав на него."
+autowrap_mode = 3
+
+[node name="InviteDialog" parent="." instance=ExtResource("14_modal")]
+visible = false
+layout_mode = 1
+
+[node name="Copy" type="Button" parent="InviteDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_type_variation = &"GoldButton"
+text = "Скопировать ссылку"
+
+[node name="Caption" type="Label" parent="InviteDialog/Center/Panel/Box/Content"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Друзья и компании"
+
+[node name="Scroll" type="ScrollContainer" parent="InviteDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="InviteDialog/Center/Panel/Box/Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Send" type="Button" parent="InviteDialog/Center/Panel/Box/Content"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Позвать выбранных"

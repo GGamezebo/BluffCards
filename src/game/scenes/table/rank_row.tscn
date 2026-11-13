@@ -1,0 +1,126 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/rank_row.gd" id="1_s"]
+
+[node name="RankRow" type="HBoxContainer"]
+offset_right = 700.0
+offset_bottom = 52.0
+theme_override_constants/separation = 4
+script = ExtResource("1_s")
+
+[node name="R0" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "2"
+
+[node name="R1" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "3"
+
+[node name="R2" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "4"
+
+[node name="R3" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "5"
+
+[node name="R4" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "6"
+
+[node name="R5" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "7"
+
+[node name="R6" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "8"
+
+[node name="R7" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "9"
+
+[node name="R8" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "10"
+
+[node name="R9" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "В"
+
+[node name="R10" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "Д"
+
+[node name="R11" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "К"
+
+[node name="R12" type="Button" parent="."]
+custom_minimum_size = Vector2(46, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_type_variation = &"RankButton"
+toggle_mode = true
+text = "Т"

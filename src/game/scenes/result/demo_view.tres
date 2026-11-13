@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="TableView" format=3]
+
+[ext_resource type="Script" path="res://src/common/table_view.gd" id="1_s"]
+
+[resource]
+script = ExtResource("1_s")
+data = {
+"kind": "public",
+"mode": "quick",
+"fee": 0,
+"size": 4,
+"phase": "finished",
+"me": 0,
+"seats": [{
+"seat": 0,
+"name": "Гость A122",
+"avatar": 4
+}, {
+"seat": 1,
+"name": "Ира",
+"avatar": 0
+}, {
+"seat": 2,
+"name": "Макс",
+"avatar": 2
+}, {
+"seat": 3,
+"name": "Маша",
+"avatar": 1
+}],
+"result": {
+"final": true,
+"placements": [[3], [0], [1], [2]],
+"coins": 15,
+"place": 2
+}
+}

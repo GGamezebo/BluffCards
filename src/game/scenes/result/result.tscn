@@ -1,0 +1,154 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/result/result.gd" id="1_s"]
+[ext_resource type="Theme" path="res://src/ui/theme/bluff_theme.tres" id="2_th"]
+[ext_resource type="Resource" path="res://src/common/table_view.tres" id="3_view"]
+[ext_resource type="Resource" path="res://src/game/scenes/match_session/match_events.tres" id="4_mev"]
+[ext_resource type="Resource" path="res://src/game/scenes/online/online_events.tres" id="5_oev"]
+[ext_resource type="Resource" path="res://src/common/player_profile.tres" id="6_prof"]
+[ext_resource type="Resource" path="res://src/common/log_settings.tres" id="7_log"]
+[ext_resource type="Resource" path="res://src/game/scenes/result/demo_view.tres" id="8_demo"]
+[ext_resource type="Script" path="res://core/lib/center_column/center_column.gd" id="9_col"]
+[ext_resource type="PackedScene" path="res://src/ui/components/app_bar/app_bar.tscn" id="10_bar"]
+[ext_resource type="PackedScene" path="res://src/ui/components/avatar/avatar.tscn" id="11_av"]
+[ext_resource type="PackedScene" path="res://src/ui/components/list_line/list_line.tscn" id="12_line"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/result/respect_button.tscn" id="13_resp"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/crown.svg" id="14_crown"]
+
+[node name="Result" type="Control" node_paths=PackedStringArray("app_bar", "winner_faces", "winner_names", "winner_sub", "places_box", "coins_line", "respect_box", "again_button", "home_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_th")
+script = ExtResource("1_s")
+table_view = ExtResource("3_view")
+match_events = ExtResource("4_mev")
+online_events = ExtResource("5_oev")
+profile = ExtResource("6_prof")
+log_settings = ExtResource("7_log")
+demo_view = ExtResource("8_demo")
+app_bar = NodePath("Column/Frame/AppBar")
+winner_faces = NodePath("Column/Frame/Paper/Scroll/Box/Winners/Box/Faces")
+winner_names = NodePath("Column/Frame/Paper/Scroll/Box/Winners/Box/Names")
+winner_sub = NodePath("Column/Frame/Paper/Scroll/Box/Winners/Box/Sub")
+places_box = NodePath("Column/Frame/Paper/Scroll/Box/Places")
+coins_line = NodePath("Column/Frame/Paper/Scroll/Box/Coins")
+respect_box = NodePath("Column/Frame/Paper/Scroll/Box/Respect")
+again_button = NodePath("Column/Frame/Paper/Scroll/Box/Again")
+home_button = NodePath("Column/Frame/Paper/Scroll/Box/Home")
+avatar_scene = ExtResource("11_av")
+line_scene = ExtResource("12_line")
+respect_scene = ExtResource("13_resp")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0863, 0.2275, 0.2627, 1)
+
+[node name="Column" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_col")
+
+[node name="Frame" type="VBoxContainer" parent="Column"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AppBar" parent="Column/Frame" instance=ExtResource("10_bar")]
+layout_mode = 2
+show_help = false
+
+[node name="Paper" type="PanelContainer" parent="Column/Frame"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"ScreenPanel"
+
+[node name="Scroll" type="ScrollContainer" parent="Column/Frame/Paper"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"TitleLabel"
+text = "Итог стола"
+
+[node name="Winners" type="PanelContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"WinnerPanel"
+
+[node name="Box" type="VBoxContainer" parent="Column/Frame/Paper/Scroll/Box/Winners"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Crown" type="TextureRect" parent="Column/Frame/Paper/Scroll/Box/Winners/Box"]
+self_modulate = Color(1, 0.8196, 0.5412, 1)
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = ExtResource("14_crown")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Faces" type="HBoxContainer" parent="Column/Frame/Paper/Scroll/Box/Winners/Box"]
+layout_mode = 2
+alignment = 1
+
+[node name="Names" type="Label" parent="Column/Frame/Paper/Scroll/Box/Winners/Box"]
+layout_mode = 2
+theme_type_variation = &"LightTitle"
+theme_override_font_sizes/font_size = 32
+text = "Маша"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Sub" type="Label" parent="Column/Frame/Paper/Scroll/Box/Winners/Box"]
+layout_mode = 2
+theme_type_variation = &"SmallLightLabel"
+text = "Первое место · ваше место 2"
+horizontal_alignment = 1
+
+[node name="Places" type="VBoxContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Coins" parent="Column/Frame/Paper/Scroll/Box" instance=ExtResource("12_line")]
+layout_mode = 2
+caption = "Фишки"
+value_text = "+0"
+
+[node name="RespectTitle" type="Label" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Уважение соперникам"
+
+[node name="Respect" type="HFlowContainer" parent="Column/Frame/Paper/Scroll/Box"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="Again" type="Button" parent="Column/Frame/Paper/Scroll/Box"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_type_variation = &"HotButton"
+text = "Ещё раз"
+
+[node name="Home" type="Button" parent="Column/Frame/Paper/Scroll/Box"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+text = "На главную"

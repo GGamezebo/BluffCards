@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/art/icons/thumb.svg" id="1_thumb"]
+
+[node name="RespectButton" type="Button"]
+custom_minimum_size = Vector2(0, 56)
+offset_right = 160.0
+offset_bottom = 56.0
+tooltip_text = "Уважение"
+theme_type_variation = &"SlimButton"
+theme_override_colors/icon_normal_color = Color(0.851, 0.6039, 0.0706, 1)
+theme_override_colors/icon_hover_color = Color(0.851, 0.6039, 0.0706, 1)
+theme_override_colors/icon_pressed_color = Color(0.851, 0.6039, 0.0706, 1)
+text = "Ира"
+icon = ExtResource("1_thumb")
+expand_icon = true

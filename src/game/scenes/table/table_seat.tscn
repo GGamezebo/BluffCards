@@ -1,0 +1,156 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/table_seat.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://src/ui/components/avatar/avatar.tscn" id="2_av"]
+
+[sub_resource type="StyleBoxFlat" id="bar_bg"]
+bg_color = Color(0.11, 0.208, 0.298, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="bar_fill"]
+bg_color = Color(1, 0.8078, 0.4471, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="target"]
+content_margin_left = 8.0
+content_margin_top = 1.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.4392, 0.1843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TableSeat" type="Button" node_paths=PackedStringArray("avatar", "name_label", "info_label", "status_label", "timer_bar", "target_mark", "bubble", "bubble_label", "bubble_icon")]
+custom_minimum_size = Vector2(118, 136)
+offset_right = 118.0
+offset_bottom = 136.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"CardButton"
+script = ExtResource("1_s")
+avatar = NodePath("Box/Face/Avatar")
+name_label = NodePath("Box/Tag/Name")
+info_label = NodePath("Box/Info/Text")
+status_label = NodePath("Box/Status")
+timer_bar = NodePath("Box/Timer")
+target_mark = NodePath("Box/Face/Target")
+bubble = NodePath("Bubble")
+bubble_label = NodePath("Bubble/Row/Text")
+bubble_icon = NodePath("Bubble/Row/Icon")
+
+[node name="Box" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Face" type="CenterContainer" parent="Box"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Avatar" parent="Box/Face" instance=ExtResource("2_av")]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+
+[node name="Target" type="PanelContainer" parent="Box/Face"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("target")
+
+[node name="Label" type="Label" parent="Box/Face/Target"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.204, 0.114, 0.102, 1)
+theme_override_font_sizes/font_size = 14
+text = "объявил"
+
+[node name="Tag" type="PanelContainer" parent="Box"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_type_variation = &"SeatTag"
+
+[node name="Name" type="Label" parent="Box/Tag"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 18
+text = "Маша"
+horizontal_alignment = 1
+
+[node name="Info" type="PanelContainer" parent="Box"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_type_variation = &"SeatInfo"
+
+[node name="Text" type="Label" parent="Box/Info"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 15
+text = "5 карт · −1"
+horizontal_alignment = 1
+
+[node name="Status" type="Label" parent="Box"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"GoldLabel"
+theme_override_font_sizes/font_size = 14
+text = "отошёл"
+horizontal_alignment = 1
+
+[node name="Timer" type="ProgressBar" parent="Box"]
+visible = false
+custom_minimum_size = Vector2(70, 6)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("bar_bg")
+theme_override_styles/fill = SubResource("bar_fill")
+value = 60.0
+show_percentage = false
+
+[node name="Bubble" type="PanelContainer" parent="."]
+visible = false
+z_index = 5
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = -44.0
+offset_right = 80.0
+offset_bottom = 4.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_type_variation = &"BubblePanel"
+
+[node name="Row" type="HBoxContainer" parent="Bubble"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Bubble/Row"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Bubble/Row"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Ну-ну"

@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/hand_view.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://src/ui/components/card_face/card_face.tscn" id="2_card"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/rank_stack.tscn" id="3_stack"]
+
+[node name="HandView" type="VBoxContainer" node_paths=PackedStringArray("fan", "groups", "tools", "count_label", "select_all_button", "clear_button")]
+custom_minimum_size = Vector2(0, 150)
+offset_right = 700.0
+offset_bottom = 150.0
+theme_override_constants/separation = 8
+alignment = 2
+script = ExtResource("1_s")
+fan = NodePath("Fan")
+groups = NodePath("Groups")
+tools = NodePath("Tools")
+count_label = NodePath("Tools/Count")
+select_all_button = NodePath("Tools/All")
+clear_button = NodePath("Tools/Clear")
+card_scene = ExtResource("2_card")
+stack_scene = ExtResource("3_stack")
+
+[node name="Tools" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Count" type="Label" parent="Tools"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"LightLabel"
+text = "Выбрано 0"
+
+[node name="All" type="Button" parent="Tools"]
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "Выбрать все"
+
+[node name="Clear" type="Button" parent="Tools"]
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "Сбросить"
+
+[node name="Fan" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 124)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Groups" type="GridContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 7

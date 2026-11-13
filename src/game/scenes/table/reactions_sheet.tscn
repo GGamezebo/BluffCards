@@ -1,0 +1,94 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/reactions_sheet.gd" id="1_s"]
+[ext_resource type="Resource" path="res://src/game/scenes/table/reaction_set.tres" id="2_set"]
+[ext_resource type="PackedScene" path="res://src/ui/components/segmented/segmented.tscn" id="3_seg"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/reaction_option.tscn" id="4_opt"]
+[ext_resource type="PackedScene" path="res://src/game/scenes/table/reaction_target.tscn" id="5_tgt"]
+
+[node name="ReactionsSheet" type="Control" node_paths=PackedStringArray("tabs", "grid", "targets_box", "targets", "close_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s")
+reaction_set = ExtResource("2_set")
+tabs = NodePath("Sheet/Box/Tabs")
+grid = NodePath("Sheet/Box/Grid")
+targets_box = NodePath("Sheet/Box/Targets")
+targets = NodePath("Sheet/Box/Targets/List")
+close_button = NodePath("Sheet/Box/Head/Close")
+option_scene = ExtResource("4_opt")
+target_scene = ExtResource("5_tgt")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0196, 0.0745, 0.1059, 0.45)
+
+[node name="Sheet" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -560.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_type_variation = &"SheetPanel"
+
+[node name="Box" type="VBoxContainer" parent="Sheet"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Head" type="HBoxContainer" parent="Sheet/Box"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Sheet/Box/Head"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Реакции"
+
+[node name="Close" type="Button" parent="Sheet/Box/Head"]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+theme_type_variation = &"SlimButton"
+text = "×"
+
+[node name="Tabs" parent="Sheet/Box" instance=ExtResource("3_seg")]
+layout_mode = 2
+options = PackedStringArray("Фразы", "Эмоции", "Броски")
+
+[node name="Targets" type="VBoxContainer" parent="Sheet/Box"]
+visible = false
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Sheet/Box/Targets"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Кому"
+
+[node name="List" type="HFlowContainer" parent="Sheet/Box/Targets"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="Grid" type="GridContainer" parent="Sheet/Box"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Note" type="Label" parent="Sheet/Box"]
+layout_mode = 2
+theme_type_variation = &"MutedLabel"
+text = "Пауза между реакциями — 3 секунды, не больше трёх за 10 секунд."
+autowrap_mode = 3

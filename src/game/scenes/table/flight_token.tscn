@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[sub_resource type="StyleBoxFlat" id="token"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.8941, 0.698, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.1137, 0.1804, 0.3333, 0.8)
+shadow_offset = Vector2(3, 4)
+anti_aliasing = true
+
+[node name="FlightToken" type="PanelContainer"]
+z_index = 20
+custom_minimum_size = Vector2(46, 46)
+offset_right = 46.0
+offset_bottom = 46.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("token")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.196, 0.114, 0.133, 1)
+theme_override_font_sizes/font_size = 22
+text = "×3"
+horizontal_alignment = 1
+vertical_alignment = 1

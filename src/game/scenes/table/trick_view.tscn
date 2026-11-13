@@ -1,0 +1,100 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/trick_view.gd" id="1_s"]
+[ext_resource type="PackedScene" path="res://src/ui/components/card_back/card_back.tscn" id="2_back"]
+[ext_resource type="PackedScene" path="res://src/ui/components/card_face/card_face.tscn" id="3_face"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/shield.svg" id="4_shield"]
+[ext_resource type="Texture2D" path="res://assets/art/icons/crack.svg" id="5_crack"]
+
+[sub_resource type="StyleBoxFlat" id="verdict"]
+content_margin_left = 16.0
+content_margin_top = 4.0
+content_margin_right = 18.0
+content_margin_bottom = 6.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[node name="TrickView" type="VBoxContainer" node_paths=PackedStringArray("subtitle_label", "claim_label", "verdict", "verdict_icon", "verdict_label", "backs", "reveal_slot", "reveal_card", "pile_label")]
+custom_minimum_size = Vector2(380, 0)
+offset_right = 380.0
+offset_bottom = 260.0
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+script = ExtResource("1_s")
+subtitle_label = NodePath("Subtitle")
+claim_label = NodePath("Claim")
+verdict = NodePath("Verdict")
+verdict_icon = NodePath("Verdict/Row/Icon")
+verdict_label = NodePath("Verdict/Row/Text")
+backs = NodePath("Backs")
+reveal_slot = NodePath("Reveal")
+reveal_card = NodePath("Reveal/Card")
+pile_label = NodePath("Pile")
+back_scene = ExtResource("2_back")
+truth_icon = ExtResource("4_shield")
+lie_icon = ExtResource("5_crack")
+
+[node name="Subtitle" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"SmallLightLabel"
+text = "Маша объявляет"
+horizontal_alignment = 1
+
+[node name="Claim" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"ClaimLabel"
+text = "Три короля"
+horizontal_alignment = 1
+
+[node name="Verdict" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("verdict")
+
+[node name="Row" type="HBoxContainer" parent="Verdict"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Verdict/Row"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_shield")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Text" type="Label" parent="Verdict/Row"]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+theme_override_font_sizes/font_size = 26
+text = "Правда"
+
+[node name="Backs" type="HFlowContainer" parent="."]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+alignment = 1
+
+[node name="Reveal" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Card" parent="Reveal" instance=ExtResource("3_face")]
+custom_minimum_size = Vector2(96, 138)
+layout_mode = 2
+disabled = true
+
+[node name="Pile" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"LightLabel"
+text = "В стопке 11"
+horizontal_alignment = 1

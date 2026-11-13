@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ReactionSet" format=3]
+
+[ext_resource type="Script" path="res://src/game/scenes/table/reaction_set.gd" id="1_s"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_0.svg" id="e0"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_1.svg" id="e1"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_2.svg" id="e2"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_3.svg" id="e3"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_4.svg" id="e4"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_5.svg" id="e5"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_6.svg" id="e6"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/emoji_7.svg" id="e7"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/throw_0.svg" id="t0"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/throw_1.svg" id="t1"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/throw_2.svg" id="t2"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/throw_3.svg" id="t3"]
+[ext_resource type="Texture2D" path="res://assets/art/reactions/throw_4.svg" id="t4"]
+
+[resource]
+script = ExtResource("1_s")
+phrases = PackedStringArray("Верю-верю…", "Ну-ну", "Проверяй, не бойся", "Чистая правда!", "Блефуешь!", "Ой, зря", "Быстрее!", "Хорошая игра")
+emoji = Array[Texture2D]([ExtResource("e0"), ExtResource("e1"), ExtResource("e2"), ExtResource("e3"), ExtResource("e4"), ExtResource("e5"), ExtResource("e6"), ExtResource("e7")])
+throws = Array[Texture2D]([ExtResource("t0"), ExtResource("t1"), ExtResource("t2"), ExtResource("t3"), ExtResource("t4")])

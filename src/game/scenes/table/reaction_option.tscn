@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[node name="ReactionOption" type="Button"]
+custom_minimum_size = Vector2(0, 72)
+offset_right = 150.0
+offset_bottom = 72.0
+size_flags_horizontal = 3
+theme_type_variation = &"SlimButton"
+icon_alignment = 1
+expand_icon = true
